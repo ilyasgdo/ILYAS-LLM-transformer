@@ -4,10 +4,10 @@ __pycache__/
 *$py.class
 
 # C extensions
-*.so
-
+v1output
+output_optimized
 # Distribution / packaging
-.Python
+.Python 
 build/
 develop-eggs/
 dist/

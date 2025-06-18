@@ -1,0 +1,12 @@
+{
+  "total_lines": 40002,
+  "too_short": 13308,
+  "too_long": 0,
+  "forbidden_patterns": 39,
+  "wrong_language": 374,
+  "grammar_errors": 0,
+  "duplicates": 0,
+  "quality_issues": 130,
+  "final_kept": 0,
+  "processing_time": 112.24536061286926
+}

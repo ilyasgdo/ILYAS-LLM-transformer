@@ -1,0 +1,176 @@
+{
+    "nodes": [
+      {
+        "parameters": {
+          "command": "=echo \\\"{{$json.phrase}}\\\" >> /data/all.txt"
+        },
+        "type": "n8n-nodes-base.executeCommand",
+        "typeVersion": 1,
+        "position": [
+          740,
+          -120
+        ],
+        "id": "2d0bd17b-1f89-4777-a04f-9334070cab21",
+        "name": "Execute Command"
+      },
+      {
+        "parameters": {
+          "operation": "write",
+          "fileName": "C:\\Users\\ilyas\\Documents\\PROJET LLM\\data\\all.txt",
+          "dataPropertyName": "={{ $json.output }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.readWriteFile",
+        "typeVersion": 1,
+        "position": [
+          960,
+          40
+        ],
+        "id": "5540eb50-5093-4094-aec6-cbc1821b670e",
+        "name": "Read/Write Files from Disk"
+      },
+      {
+        "parameters": {
+          "sessionIdType": "customKey",
+          "sessionKey": "1",
+          "contextWindowLength": 20
+        },
+        "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+        "typeVersion": 1.3,
+        "position": [
+          320,
+          140
+        ],
+        "id": "2e90a59d-b8b6-4e70-8deb-ce9109e233d6",
+        "name": "Window Buffer Memory"
+      },
+      {
+        "parameters": {
+          "model": "qwen2.5-coder:1.5b",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+        "typeVersion": 1,
+        "position": [
+          180,
+          140
+        ],
+        "id": "49e46a23-af0c-415b-863c-ae2708e9cb0a",
+        "name": "Ollama Chat Model",
+        "credentials": {
+          "ollamaApi": {
+            "id": "7BiOsVtwXywkc8XB",
+            "name": "Ollama account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "genre une phrase en francais dans un theme  aleatoire , juste donne la phrase rien d'autre sans guimmet",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 1.7,
+        "position": [
+          120,
+          -220
+        ],
+        "id": "ee6f3b5a-931f-4b9c-bb96-b3e8333f4081",
+        "name": "AI Agent"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          -100,
+          -220
+        ],
+        "id": "d001b03f-2eed-433e-b347-a4e3701f2b22",
+        "name": "When clicking ‘Test workflow’"
+      },
+      {
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "value": "={{ $json.output }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "478f358f-4a43-4326-812e-826ca86727db",
+        "name": "Set Phrase",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 1,
+        "position": [
+          520,
+          -120
+        ]
+      }
+    ],
+    "connections": {
+      "Window Buffer Memory": {
+        "ai_memory": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_memory",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Ollama Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "AI Agent": {
+        "main": [
+          [
+            {
+              "node": "Set Phrase",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "When clicking ‘Test workflow’": {
+        "main": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Set Phrase": {
+        "main": [
+          [
+            {
+              "node": "Execute Command",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "pinData": {},
+    "meta": {
+      "templateCredsSetupCompleted": true,
+      "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+    }
+  }

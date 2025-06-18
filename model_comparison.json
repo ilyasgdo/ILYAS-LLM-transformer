@@ -1,0 +1,20 @@
+[
+  {
+    "model_path": "output",
+    "perplexity": 97785.04541772313,
+    "average_loss": 11.490526934491776,
+    "model_parameters": 30143232,
+    "model_size_mb": 114.9873046875,
+    "test_samples": 1644,
+    "device": "cuda"
+  },
+  {
+    "model_path": "output\\checkpoint-18954",
+    "perplexity": 450750.4410766196,
+    "average_loss": 13.018669119604452,
+    "model_parameters": 30143232,
+    "model_size_mb": 114.9873046875,
+    "test_samples": 1644,
+    "device": "cuda"
+  }
+]
